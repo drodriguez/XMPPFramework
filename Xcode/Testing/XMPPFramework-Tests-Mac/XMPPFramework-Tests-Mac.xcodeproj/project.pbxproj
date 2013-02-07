@@ -42,6 +42,8 @@
 		653D0E0C16BC97C1000906D4 /* XMPPCapabilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 653D0E0716BC97C1000906D4 /* XMPPCapabilities.m */; };
 		653D0E0E16BC9851000906D4 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 653D0E0D16BC9851000906D4 /* Security.framework */; };
 		653D0E1316BC98EE000906D4 /* XMPPIQ+LastActivityTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 653D0E1216BC98EE000906D4 /* XMPPIQ+LastActivityTest.m */; };
+		6573314416C45CD40035D112 /* XMPPPing.m in Sources */ = {isa = PBXBuildFile; fileRef = 6573314216C45CD40035D112 /* XMPPPing.m */; };
+		6573314916C45D780035D112 /* XMPPPingTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6573314716C45D780035D112 /* XMPPPingTest.m */; };
 		6586177D16C3118500EE467D /* NSDate+XMPPDateTimeProfiles.m in Sources */ = {isa = PBXBuildFile; fileRef = 6586177A16C3118500EE467D /* NSDate+XMPPDateTimeProfiles.m */; };
 		6586177E16C3118500EE467D /* XMPPDateTimeProfiles.m in Sources */ = {isa = PBXBuildFile; fileRef = 6586177C16C3118500EE467D /* XMPPDateTimeProfiles.m */; };
 		6586178116C311B900EE467D /* XMPPDateTimeProfilesTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6586178016C311B900EE467D /* XMPPDateTimeProfilesTest.m */; };
@@ -140,6 +142,9 @@
 		653D0E0716BC97C1000906D4 /* XMPPCapabilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMPPCapabilities.m; sourceTree = "<group>"; };
 		653D0E0D16BC9851000906D4 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		653D0E1216BC98EE000906D4 /* XMPPIQ+LastActivityTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XMPPIQ+LastActivityTest.m"; sourceTree = "<group>"; };
+		6573314116C45CD40035D112 /* XMPPPing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMPPPing.h; sourceTree = "<group>"; };
+		6573314216C45CD40035D112 /* XMPPPing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMPPPing.m; sourceTree = "<group>"; };
+		6573314716C45D780035D112 /* XMPPPingTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMPPPingTest.m; sourceTree = "<group>"; };
 		6586177916C3118500EE467D /* NSDate+XMPPDateTimeProfiles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+XMPPDateTimeProfiles.h"; sourceTree = "<group>"; };
 		6586177A16C3118500EE467D /* NSDate+XMPPDateTimeProfiles.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+XMPPDateTimeProfiles.m"; sourceTree = "<group>"; };
 		6586177B16C3118500EE467D /* XMPPDateTimeProfiles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMPPDateTimeProfiles.h; sourceTree = "<group>"; };
@@ -308,6 +313,7 @@
 				653D0C2F16BC9257000906D4 /* XEP-0012 */,
 				6586177816C3118500EE467D /* XEP-0082 */,
 				653D0DFD16BC97C1000906D4 /* XEP-0115 */,
+				6573313E16C45CD40035D112 /* XEP-0199 */,
 			);
 			name = Extensions;
 			path = ../../../../Extensions;
@@ -449,6 +455,7 @@
 			children = (
 				653D0E1016BC9874000906D4 /* XEP-0012 */,
 				6586177716C3116D00EE467D /* XEP-0082 */,
+				6573314516C45CF60035D112 /* XEP-0199 */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -460,6 +467,23 @@
 				650895E816BD5996003DF20B /* XMPPLastActivityTest.m */,
 			);
 			path = "XEP-0012";
+			sourceTree = "<group>";
+		};
+		6573313E16C45CD40035D112 /* XEP-0199 */ = {
+			isa = PBXGroup;
+			children = (
+				6573314116C45CD40035D112 /* XMPPPing.h */,
+				6573314216C45CD40035D112 /* XMPPPing.m */,
+			);
+			path = "XEP-0199";
+			sourceTree = "<group>";
+		};
+		6573314516C45CF60035D112 /* XEP-0199 */ = {
+			isa = PBXGroup;
+			children = (
+				6573314716C45D780035D112 /* XMPPPingTest.m */,
+			);
+			path = "XEP-0199";
 			sourceTree = "<group>";
 		};
 		6586177716C3116D00EE467D /* XEP-0082 */ = {
@@ -579,6 +603,8 @@
 				6586177E16C3118500EE467D /* XMPPDateTimeProfiles.m in Sources */,
 				6586178116C311B900EE467D /* XMPPDateTimeProfilesTest.m in Sources */,
 				6586178316C31B4C00EE467D /* NSDate+XMPPDateTimeProfilesTest.m in Sources */,
+				6573314416C45CD40035D112 /* XMPPPing.m in Sources */,
+				6573314916C45D780035D112 /* XMPPPingTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
