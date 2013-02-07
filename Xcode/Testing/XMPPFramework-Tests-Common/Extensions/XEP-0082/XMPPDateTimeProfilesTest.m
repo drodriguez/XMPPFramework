@@ -36,6 +36,7 @@
     _dateFormatter = [[NSDateFormatter alloc] init];
     [_dateFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
     [_dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss.SSS z"];
+    [_dateFormatter setLocale:[NSLocale systemLocale]];
 }
 
 - (void)tearDown
@@ -72,11 +73,13 @@
     NSDateFormatter *dayFormatter = [[NSDateFormatter alloc] init];
     [dayFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
     [dayFormatter setDateFormat:@"yyyy-MM-dd"];
+    [dayFormatter setLocale:[NSLocale systemLocale]];
 
     // The tz part will be the one of the current day (DST/Standard)
     NSDateFormatter *tzFormatter = [[NSDateFormatter alloc] init];
     [tzFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
     [tzFormatter setDateFormat:@"z"];
+    [tzFormatter setLocale:[NSLocale systemLocale]];
 
     #define XMPPAssertParseTimeEqualStrings(time, expected, description, ...) \
         do { \

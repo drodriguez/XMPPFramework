@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6586178916C32D8300EE467D /* NSDate+XMPPDateTimeProfiles.m in Sources */ = {isa = PBXBuildFile; fileRef = 6586178616C32D8300EE467D /* NSDate+XMPPDateTimeProfiles.m */; };
+		6586178A16C32D8300EE467D /* XMPPDateTimeProfiles.m in Sources */ = {isa = PBXBuildFile; fileRef = 6586178816C32D8300EE467D /* XMPPDateTimeProfiles.m */; };
+		6586178E16C32DA700EE467D /* NSDate+XMPPDateTimeProfilesTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6586178C16C32DA700EE467D /* NSDate+XMPPDateTimeProfilesTest.m */; };
+		6586178F16C32DA700EE467D /* XMPPDateTimeProfilesTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6586178D16C32DA700EE467D /* XMPPDateTimeProfilesTest.m */; };
 		65E5364216BEC2F800810BFD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65E5364116BEC2F800810BFD /* UIKit.framework */; };
 		65E5364416BEC2F800810BFD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65E5364316BEC2F800810BFD /* Foundation.framework */; };
 		65E5364616BEC2F800810BFD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65E5364516BEC2F800810BFD /* CoreGraphics.framework */; };
@@ -63,6 +67,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6586178516C32D8300EE467D /* NSDate+XMPPDateTimeProfiles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+XMPPDateTimeProfiles.h"; sourceTree = "<group>"; };
+		6586178616C32D8300EE467D /* NSDate+XMPPDateTimeProfiles.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+XMPPDateTimeProfiles.m"; sourceTree = "<group>"; };
+		6586178716C32D8300EE467D /* XMPPDateTimeProfiles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMPPDateTimeProfiles.h; sourceTree = "<group>"; };
+		6586178816C32D8300EE467D /* XMPPDateTimeProfiles.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMPPDateTimeProfiles.m; sourceTree = "<group>"; };
+		6586178C16C32DA700EE467D /* NSDate+XMPPDateTimeProfilesTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+XMPPDateTimeProfilesTest.m"; sourceTree = "<group>"; };
+		6586178D16C32DA700EE467D /* XMPPDateTimeProfilesTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMPPDateTimeProfilesTest.m; sourceTree = "<group>"; };
 		65E5363E16BEC2F800810BFD /* XMPPFramework-Tests-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "XMPPFramework-Tests-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		65E5364116BEC2F800810BFD /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		65E5364316BEC2F800810BFD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -193,6 +203,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6586178416C32D8300EE467D /* XEP-0082 */ = {
+			isa = PBXGroup;
+			children = (
+				6586178516C32D8300EE467D /* NSDate+XMPPDateTimeProfiles.h */,
+				6586178616C32D8300EE467D /* NSDate+XMPPDateTimeProfiles.m */,
+				6586178716C32D8300EE467D /* XMPPDateTimeProfiles.h */,
+				6586178816C32D8300EE467D /* XMPPDateTimeProfiles.m */,
+			);
+			path = "XEP-0082";
+			sourceTree = "<group>";
+		};
+		6586178B16C32DA700EE467D /* XEP-0082 */ = {
+			isa = PBXGroup;
+			children = (
+				6586178C16C32DA700EE467D /* NSDate+XMPPDateTimeProfilesTest.m */,
+				6586178D16C32DA700EE467D /* XMPPDateTimeProfilesTest.m */,
+			);
+			path = "XEP-0082";
+			sourceTree = "<group>";
+		};
 		65E5363516BEC2F800810BFD = {
 			isa = PBXGroup;
 			children = (
@@ -510,6 +540,7 @@
 			isa = PBXGroup;
 			children = (
 				65E5378416BEC79000810BFD /* XEP-0012 */,
+				6586178B16C32DA700EE467D /* XEP-0082 */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -536,6 +567,7 @@
 			isa = PBXGroup;
 			children = (
 				65E537B816BEC98700810BFD /* XEP-0012 */,
+				6586178416C32D8300EE467D /* XEP-0082 */,
 				65E5381116BEC98700810BFD /* XEP-0115 */,
 			);
 			name = Extensions;
@@ -667,6 +699,10 @@
 				65E5385016BEC98700810BFD /* XMPPIQ+LastActivity.m in Sources */,
 				65E5385116BEC98700810BFD /* XMPPLastActivity.m in Sources */,
 				65E5387816BEC98700810BFD /* XMPPCapabilities.m in Sources */,
+				6586178916C32D8300EE467D /* NSDate+XMPPDateTimeProfiles.m in Sources */,
+				6586178A16C32D8300EE467D /* XMPPDateTimeProfiles.m in Sources */,
+				6586178E16C32DA700EE467D /* NSDate+XMPPDateTimeProfilesTest.m in Sources */,
+				6586178F16C32DA700EE467D /* XMPPDateTimeProfilesTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -804,6 +840,7 @@
 				65E5365D16BEC2F900810BFD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
