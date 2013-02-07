@@ -69,8 +69,7 @@
     [[stream expect] autoAddDelegate:module delegateQueue:moduleQueue toModulesOfClass:[XMPPCapabilities class]];
 #endif
 
-    [module activate:stream];
-
+    GHAssertTrue([module activate:stream], nil);
     GHAssertEquals(module.xmppStream, stream, nil);
 
     [stream verify];
