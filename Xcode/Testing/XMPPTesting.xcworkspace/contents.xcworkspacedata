@@ -55,10 +55,4 @@
    <FileRef
       location = "group:TestSRVResolver/TestSRVResolver.xcodeproj">
    </FileRef>
-   <FileRef
-      location = "group:TestXEP82/Mac/TestXEP82.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:TestXEP82/iOS/TestXEP82.xcodeproj">
-   </FileRef>
 </Workspace>
