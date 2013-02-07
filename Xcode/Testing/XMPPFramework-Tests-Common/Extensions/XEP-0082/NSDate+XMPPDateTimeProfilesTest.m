@@ -16,11 +16,11 @@
 
 #import "XMPPFramework.h"
 
-@interface NSDateXMPPDateTimeProfilesTest : GHTestCase
+@interface NSDate_XMPPDateTimeProfilesTest : GHTestCase
 
 @end
 
-@implementation NSDateXMPPDateTimeProfilesTest
+@implementation NSDate_XMPPDateTimeProfilesTest
 {
     NSDateFormatter *_dateFormatter;
     NSTimeZone *_originalTimeZone;
