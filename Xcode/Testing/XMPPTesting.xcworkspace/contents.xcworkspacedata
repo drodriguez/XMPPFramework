@@ -8,12 +8,6 @@
       location = "group:XMPPFramework-Tests-Mac/XMPPFramework-Tests-Mac.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:AutoPingTest/Desktop/AutoPingTest.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:AutoPingTest/Mobile/AutoPingTest.xcodeproj">
-   </FileRef>
-   <FileRef
       location = "group:AutoTimeTest/Desktop/AutoTimeTest.xcodeproj">
    </FileRef>
    <FileRef
