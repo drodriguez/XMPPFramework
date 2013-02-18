@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6573314F16C46DEE0035D112 /* XMPPAutoPing.m in Sources */ = {isa = PBXBuildFile; fileRef = 6573314C16C46DEE0035D112 /* XMPPAutoPing.m */; };
 		6573315016C46DEE0035D112 /* XMPPPing.m in Sources */ = {isa = PBXBuildFile; fileRef = 6573314E16C46DEE0035D112 /* XMPPPing.m */; };
+		6573315416C46E000035D112 /* XMPPAutoPingTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6573315216C46E000035D112 /* XMPPAutoPingTest.m */; };
 		6573315516C46E000035D112 /* XMPPPingTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6573315316C46E000035D112 /* XMPPPingTest.m */; };
 		6586178916C32D8300EE467D /* NSDate+XMPPDateTimeProfiles.m in Sources */ = {isa = PBXBuildFile; fileRef = 6586178616C32D8300EE467D /* NSDate+XMPPDateTimeProfiles.m */; };
 		6586178A16C32D8300EE467D /* XMPPDateTimeProfiles.m in Sources */ = {isa = PBXBuildFile; fileRef = 6586178816C32D8300EE467D /* XMPPDateTimeProfiles.m */; };
@@ -69,8 +71,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6573314B16C46DEE0035D112 /* XMPPAutoPing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMPPAutoPing.h; sourceTree = "<group>"; };
+		6573314C16C46DEE0035D112 /* XMPPAutoPing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMPPAutoPing.m; sourceTree = "<group>"; };
 		6573314D16C46DEE0035D112 /* XMPPPing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMPPPing.h; sourceTree = "<group>"; };
 		6573314E16C46DEE0035D112 /* XMPPPing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMPPPing.m; sourceTree = "<group>"; };
+		6573315216C46E000035D112 /* XMPPAutoPingTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMPPAutoPingTest.m; sourceTree = "<group>"; };
 		6573315316C46E000035D112 /* XMPPPingTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMPPPingTest.m; sourceTree = "<group>"; };
 		6586178516C32D8300EE467D /* NSDate+XMPPDateTimeProfiles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+XMPPDateTimeProfiles.h"; sourceTree = "<group>"; };
 		6586178616C32D8300EE467D /* NSDate+XMPPDateTimeProfiles.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+XMPPDateTimeProfiles.m"; sourceTree = "<group>"; };
@@ -211,6 +216,8 @@
 		6573314A16C46DEE0035D112 /* XEP-0199 */ = {
 			isa = PBXGroup;
 			children = (
+				6573314B16C46DEE0035D112 /* XMPPAutoPing.h */,
+				6573314C16C46DEE0035D112 /* XMPPAutoPing.m */,
 				6573314D16C46DEE0035D112 /* XMPPPing.h */,
 				6573314E16C46DEE0035D112 /* XMPPPing.m */,
 			);
@@ -220,6 +227,7 @@
 		6573315116C46E000035D112 /* XEP-0199 */ = {
 			isa = PBXGroup;
 			children = (
+				6573315216C46E000035D112 /* XMPPAutoPingTest.m */,
 				6573315316C46E000035D112 /* XMPPPingTest.m */,
 			);
 			path = "XEP-0199";
@@ -252,7 +260,9 @@
 				65E5364016BEC2F800810BFD /* Frameworks */,
 				65E5363F16BEC2F800810BFD /* Products */,
 			);
+			indentWidth = 4;
 			sourceTree = "<group>";
+			tabWidth = 4;
 		};
 		65E5363F16BEC2F800810BFD /* Products */ = {
 			isa = PBXGroup;
@@ -727,7 +737,9 @@
 				6586178A16C32D8300EE467D /* XMPPDateTimeProfiles.m in Sources */,
 				6586178E16C32DA700EE467D /* NSDate+XMPPDateTimeProfilesTest.m in Sources */,
 				6586178F16C32DA700EE467D /* XMPPDateTimeProfilesTest.m in Sources */,
+				6573314F16C46DEE0035D112 /* XMPPAutoPing.m in Sources */,
 				6573315016C46DEE0035D112 /* XMPPPing.m in Sources */,
+				6573315416C46E000035D112 /* XMPPAutoPingTest.m in Sources */,
 				6573315516C46E000035D112 /* XMPPPingTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

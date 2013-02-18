@@ -1,5 +1,7 @@
 #import "XMPP.h"
 
+#import "XMPPAutoPing.h"
+
 #import "XMPPCapabilities.h"
 
 #import "XMPPDateTimeProfiles.h"
