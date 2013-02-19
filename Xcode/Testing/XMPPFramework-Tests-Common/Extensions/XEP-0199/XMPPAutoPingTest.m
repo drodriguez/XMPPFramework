@@ -45,9 +45,11 @@
 
 - (void)tearDown
 {
+    module = nil;
 #if !OS_OBJECT_USE_OBJC
     dispatch_release(moduleQueue);
 #endif
+    moduleQueue = NULL;
 }
 
 - (void)testPingIntervalDefaultsTo60
@@ -276,7 +278,7 @@
   XMPPJID *juliet = [XMPPJID jidWithString:@"juliet@capulet.com/balcony"];
   XMPPPresence *pre = [XMPPPresence presence];
   [pre addAttributeWithName:@"from" stringValue:romeo.full];
-  module.targetJID = juliet;
+    module.targetJID = juliet;
 
   __block NSTimeInterval now = 0;
   // the stream is not used
@@ -288,14 +290,215 @@
   GHAssertEqualsWithAccuracy(0.0, module.lastReceiveTime, 0, nil);
 }
 
+- (void)testTargetJIDIsUsedAsPingTarget
+{
+    XMPPJID *romeo = [XMPPJID jidWithString:@"romeo@montague.net/orchard"];
+    module.targetJID = romeo;
+    id stream = [OCMockObject mockForClass:[XMPPStream class]];
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
 
-// TODO: test stopPingIntervalTimer after deactivate
-// TODO: test stopPingIntervalTimer after dealloc
-// TODO: test xmppPing removeDelegate after dealloc
-// TODO: test startPingIntervalTimer after setting pingInterval and being authenticated
-// TODO: test stopPingIntervalTimer after setting pingInterval to 0
-// TODO: test pingTimeout not sending ping
-// TODO: test targetJID looking which ping is sent to mock xmppStream
+    [(XMPPStream *)[stream stub] setTag:@"1"];
+    [[stream stub] addDelegate:module delegateQueue:moduleQueue];
+    [[stream stub] registerModule:module];
+    [[stream stub] addDelegate:[OCMArg any] delegateQueue:moduleQueue];
+    [[stream stub] registerModule:[OCMArg any]];
+
+#ifdef _XMPP_CAPABILITIES_H
+    [[stream stub] autoAddDelegate:[OCMArg any] delegateQueue:moduleQueue toModulesOfClass:[XMPPCapabilities class]];
+#endif
+
+    [module activate:stream];
+
+    [[[stream stub] andReturnValue:@YES] isAuthenticated];
+    [[[stream stub] andReturn:@"DUMMY-GUID"] generateUUID];
+    [[stream expect] sendElement:[OCMArg checkWithBlock:^BOOL(XMPPIQ *iq) {
+        GHAssertEqualStrings([romeo full], iq.toStr, nil);
+        dispatch_semaphore_signal(semaphore);
+        return YES;
+    }]];
+
+    module.pingInterval = 1.0;
+
+    if (dispatch_semaphore_wait(semaphore, dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC)) != 0)
+    {
+        GHFail(@"The ping was not sent");
+    }
+
+    module.pingInterval = 0;
+
+    [stream verify];
+}
+
+- (void)testTargetJIDNilSendsPingToServer
+{
+    id stream = [OCMockObject mockForClass:[XMPPStream class]];
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+
+    [(XMPPStream *)[stream stub] setTag:@"2"];
+    [[stream stub] addDelegate:module delegateQueue:moduleQueue];
+    [[stream stub] registerModule:module];
+    [[stream stub] addDelegate:[OCMArg any] delegateQueue:moduleQueue];
+    [[stream stub] registerModule:[OCMArg any]];
+
+#ifdef _XMPP_CAPABILITIES_H
+    [[stream stub] autoAddDelegate:[OCMArg any] delegateQueue:moduleQueue toModulesOfClass:[XMPPCapabilities class]];
+#endif
+
+    [module activate:stream];
+
+    [[[stream stub] andReturnValue:@YES] isAuthenticated];
+    [[[stream stub] andReturn:@"DUMMY-GUID"] generateUUID];
+    [[stream expect] sendElement:[OCMArg checkWithBlock:^BOOL(XMPPIQ *iq) {
+        GHAssertNil(iq.toStr, nil);
+        dispatch_semaphore_signal(semaphore);
+        return YES;
+    }]];
+
+    module.pingInterval = 1.0;
+
+    if (dispatch_semaphore_wait(semaphore, dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC)) != 0)
+    {
+        GHFail(@"The ping was not sent");
+    }
+
+    module.pingInterval = 0;
+
+    [stream verify];
+}
+
+- (void)testNoMorePingsAreSentAfterSettingPingIntervalToZero
+{
+    id stream = [OCMockObject mockForClass:[XMPPStream class]];
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+
+    [(XMPPStream *)[stream stub] setTag:@"3"];
+    [[stream stub] addDelegate:module delegateQueue:moduleQueue];
+    [[stream stub] registerModule:module];
+    [[stream stub] addDelegate:[OCMArg any] delegateQueue:moduleQueue];
+    [[stream stub] registerModule:[OCMArg any]];
+
+#ifdef _XMPP_CAPABILITIES_H
+    [[stream stub] autoAddDelegate:[OCMArg any] delegateQueue:moduleQueue toModulesOfClass:[XMPPCapabilities class]];
+#endif
+
+    [module activate:stream];
+
+    [[[stream stub] andReturnValue:@YES] isAuthenticated];
+    [[[stream stub] andReturn:@"DUMMY-GUID"] generateUUID];
+    [[stream expect] sendElement:[OCMArg checkWithBlock:^BOOL(XMPPIQ *iq) {
+        dispatch_semaphore_signal(semaphore);
+        return YES;
+    }]];
+
+    module.pingInterval = 1.0;
+
+    if (dispatch_semaphore_wait(semaphore, dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC)) != 0)
+    {
+        GHFail(@"The ping was not sent");
+    }
+
+    module.pingInterval = 0;
+
+    // Wait for a second, the stream should not receive anything else.
+    if (dispatch_semaphore_wait(semaphore, dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC)) == 0) {
+        GHFail(@"somebody signaled the semaphore, but that should not happen");
+    }
+
+    [stream verify];
+}
+
+- (void)testNoMorePingsAreSentAfterDeactivate
+{
+    id stream = [OCMockObject mockForClass:[XMPPStream class]];
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+
+    [(XMPPStream *)[stream stub] setTag:@"4"];
+    [[stream stub] addDelegate:module delegateQueue:moduleQueue];
+    [[stream stub] registerModule:module];
+    [[stream stub] addDelegate:[OCMArg any] delegateQueue:moduleQueue];
+    [[stream stub] registerModule:[OCMArg any]];
+
+#ifdef _XMPP_CAPABILITIES_H
+    [[stream stub] autoAddDelegate:[OCMArg any] delegateQueue:moduleQueue toModulesOfClass:[XMPPCapabilities class]];
+#endif
+
+    [module activate:stream];
+
+    [[[stream stub] andReturnValue:@YES] isAuthenticated];
+    [[[stream stub] andReturn:@"DUMMY-GUID"] generateUUID];
+    [[stream expect] sendElement:[OCMArg checkWithBlock:^BOOL(XMPPIQ *iq) {
+        dispatch_semaphore_signal(semaphore);
+        return YES;
+    }]];
+
+    module.pingInterval = 1.0;
+
+    if (dispatch_semaphore_wait(semaphore, dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC)) != 0)
+    {
+        GHFail(@"The ping was not sent");
+    }
+
+    [[stream stub] removeDelegate:module delegateQueue:moduleQueue];
+    [[stream stub] unregisterModule:module];
+    [[stream stub] removeAutoDelegate:[OCMArg any] delegateQueue:moduleQueue fromModulesOfClass:[XMPPCapabilities class]];
+    [[stream stub] removeDelegate:[OCMArg any] delegateQueue:moduleQueue];
+    [[stream stub] unregisterModule:[OCMArg any]];
+
+    [module deactivate];
+
+    // Wait for a second, the stream should not receive anything else.
+    if (dispatch_semaphore_wait(semaphore, dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC)) == 0) {
+        GHFail(@"somebody signaled the semaphore, but that should not happen");
+    }
+    
+    [stream verify];
+}
+
+- (void)testDelegateInvokedAfterSendingPing
+{
+    XMPPAutoPingDelegateMock *delegate = [[XMPPAutoPingDelegateMock alloc] init];
+    id stream = [OCMockObject mockForClass:[XMPPStream class]];
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+
+    dispatch_queue_t testQueue = dispatch_queue_create("test", 0);
+    [module addDelegate:delegate delegateQueue:testQueue];
+
+    [(XMPPStream *)[stream stub] setTag:@"5"];
+    [[stream stub] addDelegate:module delegateQueue:moduleQueue];
+    [[stream stub] registerModule:module];
+    [[stream stub] addDelegate:[OCMArg any] delegateQueue:moduleQueue];
+    [[stream stub] registerModule:[OCMArg any]];
+
+#ifdef _XMPP_CAPABILITIES_H
+    [[stream stub] autoAddDelegate:[OCMArg any] delegateQueue:moduleQueue toModulesOfClass:[XMPPCapabilities class]];
+#endif
+
+    [module activate:stream];
+
+    [[[stream stub] andReturnValue:@YES] isAuthenticated];
+    [[[stream stub] andReturn:@"DUMMY-GUID"] generateUUID];
+    [[stream expect] sendElement:[OCMArg any]];
+
+    delegate.XMPPAutoPingDidSendPing = ^(XMPPAutoPing *sender) {
+        GHAssertEquals(module, sender, nil);
+        dispatch_semaphore_signal(semaphore);
+    };
+
+    module.pingInterval = 1.0; // forces the ping after 0.25s
+
+    if (dispatch_semaphore_wait(semaphore, dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC)) != 0)
+    {
+        GHFail(@"The ping was not sent");
+    }
+
+    module.pingInterval = 0;
+
+    [stream verify];
+}
+
+// TODO: test stopPingIntervalTimer after dealloc ???
+// TODO: test xmppPing removeDelegate after dealloc ???
+// TODO: test pingTimeout not sending pong
 // TODO: test delegate invoked after receiving pong
 // TODO: test delegate invoked after not receving pong
 // TODO: test startPingIntervalTimer after authenticating
